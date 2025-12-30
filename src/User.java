@@ -12,16 +12,17 @@ public class User {
         this.isBroker = isBroker;
     }
 
-    public String toString()
+    public String toString() // O(1)
     {
         String userNameString = "Username: " + this.userName;
         String phoneNumberString = "Phone Number: " + this.phoneNumber;
-        String outputStr = userNameString + "\n" + phoneNumberString;
+        String userStr = userNameString + " , " + phoneNumberString;
         if (this.isBroker)
         {
-            return outputStr += "\nBroker";
+            userStr += " (Broker)";
         }
-        return outputStr;
+
+        return createOutlineForUserStr(userStr);
     }
 
     public String getUserName() // O(1)
@@ -32,5 +33,40 @@ public class User {
     public boolean isUserNameEquals(String userName) // O(1)
     {
         return this.userName.equals(userName);
+    }
+
+    public boolean isPasswordEquals(String password)
+    {
+        return this.password.equals(password);
+    }
+
+    private String createOutlineForUserStr(String userStr)
+    {
+        // Initialize outputStr
+        String outputStr = "";
+
+        // Top Outline
+        outputStr += "+";
+        for (int i = 0; i < userStr.length(); i++)
+        {
+            outputStr += "-";
+        }
+        outputStr += "+\n";
+
+        // User Details and Edges
+        outputStr += "|";
+        outputStr += userStr;
+        outputStr += "|\n";
+
+        // Bottom Outline
+        outputStr += "+";
+        for (int i = 0; i < userStr.length(); i++)
+        {
+            outputStr += "-";
+        }
+        outputStr += "+\n";
+
+        // Output
+        return outputStr;
     }
 }

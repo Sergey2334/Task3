@@ -5,14 +5,26 @@ public class RealEstate {
     private Property[] properties;
     private City[] cities;
 
+    public User[] getUsers()
+    {
+        if (this.users == null)
+        {
+            return new User[0];
+        }
+        return this.users;
+    }
+
+    // SIGN UP LOGIC
+    // ______________________________________________________________________________________________
     public void createUser() // O(1)
     {
         String userName = createValidUserName();
         String userPassword = createValidUserPassword();
-        String userPhone =  createValidUserPhone();
+        String userPhoneNumber =  createValidUserPhone();
         boolean isBroker = isUserABroker();
 
-        User newUser = new User(userName, userPassword, userPhone, isBroker);
+        User newUser = new User(userName, userPassword, userPhoneNumber, isBroker);
+        addNewUserToUsers(newUser);
     }
 
     private String createValidUserName() // O(n) ?
@@ -33,11 +45,11 @@ public class RealEstate {
     // Checks if the Inputted Username is Taken
     private boolean isUserNameTaken(String userName) // O(1) ? or O(n) - Based on the Input its O(1) but we have User[] , does that count ?
     {
-        if (users != null && users.length > 0) // Checks if there are any users
+        if (this.users != null && this.users.length > 0) // Checks if there are any users
         {
-            for (int i = 0; i < users.length; i++)
+            for (int i = 0; i < this.users.length; i++)
             {
-                if (users[i].isUserNameEquals(userName))
+                if (this.users[i].isUserNameEquals(userName))
                 {
                     return true;
                 }
@@ -50,7 +62,7 @@ public class RealEstate {
     {
         Scanner input = new Scanner(System.in);
 
-        System.out.print("Enter password: ");
+        System.out.print("Enter password (Min Length 5 , At Least 1 Digit and Has to Have one Of these Symbols [$,%,_]): ");
         String userPassword = input.nextLine();
         while (!isUserPasswordValid(userPassword))
         {
@@ -90,7 +102,7 @@ public class RealEstate {
     {
         Scanner input = new Scanner(System.in);
 
-        System.out.print("Enter phone number: ");
+        System.out.print("Enter phone number (Valid Israel Phone Format 0501234567): ");
         String userPhone = input.nextLine();
         while (!isUserPhoneValid(userPhone))
         {
@@ -143,4 +155,72 @@ public class RealEstate {
 
         return inputtedVal == BROKER_USER_VAL;
     }
+
+    // Adds The New User When Someone Signs Up
+    private void addNewUserToUsers(User newUser) // O(1) ?
+    {
+        int usersArrayLength = 0;
+        if (this.users != null)
+        {
+            usersArrayLength = this.users.length;
+        }
+        User[] newUsers = new User[usersArrayLength + 1]; // Creating a New Users Array
+        for (int i = 0; i < usersArrayLength; i++)
+        {
+            newUsers[i] = this.users[i];
+        }
+        newUsers[usersArrayLength] = newUser;
+        this.users = newUsers; // This Users-Array Pointing to the New Users-Array
+    }
+    // ______________________________________________________________________________________________
+
+
+    // LOGIN LOGIC
+    // ______________________________________________________________________________________________
+    public User login()
+    {
+        User[] usersArray = this.users;
+        if (usersArray == null || usersArray.length == 0) // There are no Users in the System
+        {
+            System.out.println("No Users Found!");
+            return null;
+        }
+
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("Enter username: ");
+        String inputtedUserName = input.nextLine();
+
+        System.out.print("Enter password: ");
+        String inputtedUserPassword = input.nextLine();
+
+        User targetUser = null;
+        for (int i = 0; i < usersArray.length; i++)
+        {
+            if (usersArray[i].isUserNameEquals(inputtedUserName))
+            {
+                targetUser = usersArray[i];
+                break;
+            }
+        }
+
+        if (targetUser == null)
+        {
+            System.out.println("Invalid User!");
+            return null;
+        }
+
+
+        if (!targetUser.isPasswordEquals(inputtedUserPassword))
+        {
+            System.out.println("Wrong Password!");
+            return null;
+        }
+
+        return targetUser;
+    }
+
+
+    // ______________________________________________________________________________________________
+
 }
