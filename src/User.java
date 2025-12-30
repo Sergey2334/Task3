@@ -30,6 +30,11 @@ public class User {
         return this.userName;
     }
 
+    public boolean isBroker()
+    {
+        return this.isBroker;
+    }
+
     public boolean isUserNameEquals(String userName) // O(1)
     {
         return this.userName.equals(userName);

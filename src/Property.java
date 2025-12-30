@@ -9,4 +9,20 @@ public class Property {
     private int floor;
     private User userPoster;
 
+    public Property(String city, String street, int roomCount, int price, int type, boolean isForRent, int propertyNumber, int floor)
+    {
+        this.city = city;
+        this.street = street;
+        this.roomCount = roomCount;
+        this.price = price;
+        this.type = type;
+        this.isForRent = isForRent;
+        this.propertyNumber = propertyNumber;
+        this.floor = floor;
+    }
+
+    public boolean isUserEqualsToUserPoster(User user)
+    {
+        return this.userPoster == user;
+    }
 }

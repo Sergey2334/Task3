@@ -110,7 +110,7 @@ public class Main {
                         System.out.println("Login Successful! :D");
 
                         // User Menu
-                        userLogic();
+                        userLogic(inputtedRealEstate, inputtedUser);
                     }
 
                     // Login Failed -> Main Menu
@@ -130,7 +130,7 @@ public class Main {
 
     }
 
-    public static void userLogic(RealEstate inputtedRealEstate)
+    public static void userLogic(RealEstate inputtedRealEstate, User inputtedUser)
     {
         final int POST_NEW_PROPERTY_VAL = 1;
         final int REMOVE_POST_PROPERTY_VAL = 2;
@@ -145,28 +145,38 @@ public class Main {
             switch(userMenu())
             {
                 case POST_NEW_PROPERTY_VAL:
+                    if (inputtedRealEstate.postNewProperty(inputtedUser))
+                    {
+                        System.out.println("Property Listed Successfully! :D");
+                    }
+                    else
+                    {
+                        System.out.println("Property Listing Failed! :(");
+                    }
                     break;
 
                 case REMOVE_POST_PROPERTY_VAL:
+                    System.out.println("Remove Property Post");
                     break;
 
                 case LIST_ALL_PROPERTY_VAL:
+                    System.out.println("List All Property Posts");
                     break;
 
                 case LIST_MY_PROPERTY_VAL:
+                    System.out.println("List My Property Posts");
                     break;
 
                 case SEARCH_PROPERTY_WITH_PARAMETERS_VAL:
+                    System.out.println("Search Property Posts With Parameters");
                     break;
 
                 case LOGOUT_VAL:
+                    System.out.println("Logout Successful! :D");
                     active = false;
-                    System.out.println("Login Successful! :D");
                     break;
             }
         }
-
-
     }
 
 }
