@@ -3,6 +3,8 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
+
         RealEstate myRealEstate1 = new RealEstate();
 
         mainLogic(myRealEstate1);
@@ -156,15 +158,15 @@ public class Main {
                     break;
 
                 case REMOVE_POST_PROPERTY_VAL:
-                    System.out.println("Remove Property Post");
+                    inputtedRealEstate.removeProperty(inputtedUser);
                     break;
 
                 case LIST_ALL_PROPERTY_VAL:
-                    System.out.println("List All Property Posts");
+                    inputtedRealEstate.printAllProperties();
                     break;
 
                 case LIST_MY_PROPERTY_VAL:
-                    System.out.println("List My Property Posts");
+                    inputtedRealEstate.printProperties(inputtedUser);
                     break;
 
                 case SEARCH_PROPERTY_WITH_PARAMETERS_VAL:

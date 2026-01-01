@@ -30,6 +30,11 @@ public class User {
         return this.userName;
     }
 
+    public String getUserPhoneNumber()
+    {
+        return this.phoneNumber;
+    }
+
     public boolean isBroker()
     {
         return this.isBroker;
