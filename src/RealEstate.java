@@ -5,7 +5,8 @@ public class RealEstate {
     private Property[] properties;
     private City[] cities;
 
-    public RealEstate() {
+    public RealEstate()
+    {
         City city1 = new City("Ashkelon", "South");
         City city2 = new City("Ashkeltown", "South");
         City city3 = new City("Ashdod", "South");
@@ -25,8 +26,10 @@ public class RealEstate {
         this.users = new User[]{user1, user2, user3};
     }
 
-    public User[] getUsers() {
-        if (this.users == null) {
+    public User[] getUsers()
+    {
+        if (this.users == null)
+        {
             return new User[0];
         }
         return this.users;
@@ -235,7 +238,8 @@ public class RealEstate {
     // ______________________________________________________________________________________________
     // Post New Property Logic
     // ________________________________________________
-    public boolean postNewProperty(User user) {
+    public boolean postNewProperty(User user)
+    {
         // If User Has Reached Max Posts
         if (!isUserAllowedToPost(user)) {
             return false;
@@ -326,7 +330,8 @@ public class RealEstate {
         return true;
     }
 
-    private boolean isUserAllowedToPost(User user) {
+    private boolean isUserAllowedToPost(User user)
+    {
         // Broker - Max 5
         // Regular - Max 2
         final int BROKER_MAX_POSTS = 5;
@@ -357,7 +362,8 @@ public class RealEstate {
         return true;
     }
 
-    private City getValidCityFromCityName() {
+    private City getValidCityFromCityName()
+    {
         City[] citiesArray = this.cities;
         Scanner input = new Scanner(System.in);
 
@@ -374,7 +380,8 @@ public class RealEstate {
         return foundCity;
     }
 
-    private String getValidStreetName(String[] streetNames) {
+    private String getValidStreetName(String[] streetNames)
+    {
         Scanner input = new Scanner(System.in);
 
         System.out.print("Enter a Street Name :");
@@ -388,24 +395,39 @@ public class RealEstate {
         return null;
     }
 
-    private int getPropertyTypeVal() {
+    private int getPropertyTypeVal()
+    {
         Scanner input = new Scanner(System.in);
 
         final int APARTMENT_VAL = 1;
         final int PENTHOUSE_VAL = 2;
         final int HOUSE_VAL = 3;
-        final int ERROR_VAL = -999;
+        final int NO_FILTER_VAL = -999;
 
         System.out.println("Enter a Property Type :");
         System.out.printf("\t%d.Apartment (Regular Apartment in a Building)\n", APARTMENT_VAL);
         System.out.printf("\t%d.Penthouse (Penthouse Apartment in a Building)\n", PENTHOUSE_VAL);
         System.out.printf("\t%d.House (Private House)\n", HOUSE_VAL);
-        System.out.print("Enter a Property Type (1 - 3) : ");
-        int inputtedPropertyType = input.nextInt();
 
-        if (inputtedPropertyType < 1 || inputtedPropertyType > 3) {
-            return ERROR_VAL;
+        boolean errorVal = false;
+        int inputtedPropertyType = 0;
+        do
+        {
+            System.out.print("Enter a Property Type (1 - 3) : ");
+            inputtedPropertyType = input.nextInt();
+            if (inputtedPropertyType == NO_FILTER_VAL)
+            {
+                return inputtedPropertyType;
+            }
+            if (inputtedPropertyType < 1 || inputtedPropertyType > 3)
+            {
+                System.out.println("Invalid Property Type!");
+                errorVal = true;
+            }
+
         }
+        while (errorVal);
+
         return inputtedPropertyType;
     }
 
@@ -699,13 +721,13 @@ public class RealEstate {
         // Copying Cloned Array To Filtered Array , But Skipping Nulls
         for (int i = 0, newIndex = 0; i < clonedPropertiesArray.length; i++, newIndex++)
         {
+            if (newIndex < 0)
+            {
+                newIndex = 0;
+            }
             if (clonedPropertiesArray[i] == null)
             {
                 newIndex--;
-                if (newIndex < 0)
-                {
-                    newIndex = 0;
-                }
                 continue;
             }
             filteredPropertiesArray[newIndex] = clonedPropertiesArray[i];

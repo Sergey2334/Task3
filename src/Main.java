@@ -3,8 +3,6 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-
-
         RealEstate myRealEstate1 = new RealEstate();
 
         mainLogic(myRealEstate1);
@@ -170,7 +168,11 @@ public class Main {
                     break;
 
                 case SEARCH_PROPERTY_WITH_PARAMETERS_VAL:
-                    System.out.println("Search Property Posts With Parameters");
+                    Property[] filteredProperties = inputtedRealEstate.search();
+                    for (int i = 0; i < filteredProperties.length; i++)
+                    {
+                        System.out.printf("%d. %s\n", i + 1, filteredProperties[i]);
+                    }
                     break;
 
                 case LOGOUT_VAL:
